@@ -1,38 +1,20 @@
-import { View, Text } from 'react-native';
-import React, { useState } from 'react';
-import ToDoForm from './ToDoForm'; // Adjust the import path as necessary
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './screens/HomeScreen';
+import AboutScreen from './screens/AboutScreen';
+
+const Stack = createStackNavigator();
 
 const App = () => {
-    const [tasks, setTasks] = useState([
-        'Do laundry',
-        'Go to gym',
-        'Walk dog'
-    ]);
-
-    // Function to add a new task
-    const addTask = (taskText) => {
-        setTasks([...tasks, taskText]); // Update the tasks array with the new task
-    };
-
     return (
-        <View style={{ padding: 20 }}>
-            <ToDoList tasks={tasks} />
-            <ToDoForm addTask={addTask} /> {/* Pass addTask as a prop */}
-        </View>
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="About" component={AboutScreen} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 };
-
-// ToDoList Component
-function ToDoList({ tasks }) {
-    return (
-        <View style={{ marginVertical: 10 }}>
-            {tasks.map((task, index) => (
-                <Text key={index} style={{ textDecorationLine: 'none', marginVertical: 5 }}>
-                    {task}
-                </Text>
-            ))}
-        </View>
-    );
-}
 
 export default App;
